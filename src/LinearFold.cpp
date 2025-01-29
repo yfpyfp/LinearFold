@@ -2012,10 +2012,12 @@ int main(int argc, char** argv){
                 if (ref.length() == 0) {
                     continue;
                 }
-		
+
+		// If input is LinearFold, Remove energy term (e.g., "(-xxx.xx)")
+		// to ensure compatibility with eval function.
 		size_t space_pos = ref.find_last_of(' ');
 		if (space_pos != string::npos) {
-		    ref = ref.substr(0, space_pos);
+		    ref = ref.substr(0, space_pos); // Trim energy term.
 		}
 	
                 if ((ref[0] != '.') && (ref[0] != '(') && (ref[0] != ')')) {
