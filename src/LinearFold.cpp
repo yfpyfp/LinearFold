@@ -2012,8 +2012,13 @@ int main(int argc, char** argv){
                 if (ref.length() == 0) {
                     continue;
                 }
-
-                else if ((ref[0] != '.') && (ref[0] != '(') && (ref[0] != ')')) {
+		
+		size_t space_pos = ref.find_last_of(' ');
+		if (space_pos != string::npos) {
+		    ref = ref.substr(0, space_pos);
+		}
+	
+                if ((ref[0] != '.') && (ref[0] != '(') && (ref[0] != ')')) {
                     printf("Unrecognized structure: %s\n", ref.c_str());
                     return 0;
                 }
@@ -2039,7 +2044,7 @@ int main(int argc, char** argv){
                 // call eval function;
                 double MFE_energy = eval(seq, ref, is_verbose, dangles) / -100.0;
                 printf("%s\n", seq.c_str());
-                printf("%s (%.2f)\n", input.c_str(), MFE_energy);
+                printf("%s (%.2f)\n", ref.c_str(), MFE_energy);
 
             }
             lineIndex ++;
